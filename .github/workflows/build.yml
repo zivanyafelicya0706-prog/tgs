@@ -1,4 +1,4 @@
-name: Build C++ EXE
+name: Membuat EXE C++
 
 on:
   push:
@@ -9,22 +9,17 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Download source code
+      - name: Mengambil kode
         uses: actions/checkout@v4
 
-      - name: Install C++ compiler
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: mingw-w64-x86_64-gcc
+      - name: Menyiapkan compiler
+        uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Compile C++ to EXE
-        shell: msys2 {0}
-        run: g++ main.cpp -o kasir.exe -std=c++17
+      - name: Compile C++
+        run: cl /EHsc main.cpp /Fe:program.exe
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: kasir-windows
-          path: kasir.exe
+          name: program-exe
+          path: program.exe
